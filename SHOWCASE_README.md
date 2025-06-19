@@ -3,19 +3,19 @@
 This repository is a showcase of the AI backend for the Chironia project, a platform dedicated to special needs education. It's more than just code; it's a reflection of a development philosophy I call the **"Digital Artisan's Manifesto."**
 
 ### Our Manifesto
-*   **Beyond Functionality, We Seek Craftsmanship:** We don't just build features; we craft intelligent systems. Every component, from the core logic to the API endpoints, is designed with precision, scalability, and elegance in mind.
-*   **Autonomy is the Goal, Learning is the Path:** The system is engineered not just to execute tasks, but to operate autonomously. It learns from its outputs, remembers its findings, and grows more capable with every article it generates.
-*   **Quality is Non-Negotiable:** We rigorously verify and grade our system's output. Hallucination checks, quality assessments, and refinement loops are not afterthoughts—they are integral to the generation process.
-*   **Transparency Builds Trust:** By leveraging tools like LangSmith, we ensure every step of the AI's "thought process" is transparent and traceable. We believe in building glass-box systems, not black-box mysteries.
+-   **Beyond Functionality, We Seek Craftsmanship:** We don't just build features; we craft intelligent systems. Every component, from the core logic to the API endpoints, is designed with precision, scalability, and elegance in mind.
+-   **Autonomy is the Goal, Learning is the Path:** The system is engineered not just to execute tasks, but to operate autonomously. It learns from its outputs, remembers its findings, and grows more capable with every article it generates.
+-   **Quality is Non-Negotiable:** We rigorously verify and grade our system's output. Hallucination checks, quality assessments, and refinement loops are not afterthoughts—they are integral to the generation process.
+-   **Transparency Builds Trust:** By leveraging tools like LangSmith, we ensure every step of the AI's "thought process" is transparent and traceable. We believe in building glass-box systems, not black-box mysteries.
 
 ---
 
 ## Key Technical Features
 
-*   **Autonomous RAG Workflow:** Engineered a multi-stage, intelligent RAG (Retrieval-Augmented Generation) workflow using **LangGraph**. This graph autonomously manages research, drafting, validation, and quality control.
-*   **Persistent & Learning Memory:** Established a persistent vector memory with **ChromaDB**. The system archives both its own generated articles and valuable web-sourced data, enabling it to become more knowledgeable over time and perform intelligent topic novelty checks.
-*   **Production-Grade Observability:** The entire generation process is transparent, traceable, and manageable via full **LangSmith** integration, guaranteeing production-grade performance and quality.
-*   **Modular & Scalable Architecture:** Built on FastAPI, the project follows a clean, modular structure that separates concerns, making it highly scalable and maintainable.
+-   **Autonomous RAG Workflow:** Engineered a multi-stage, intelligent RAG (Retrieval-Augmented Generation) workflow using **LangGraph**. This graph autonomously manages research, drafting, validation, and quality control.
+-   **Persistent & Learning Memory:** Established a persistent vector memory with **ChromaDB**. The system archives both its own generated articles and valuable web-sourced data, enabling it to become more knowledgeable over time and perform intelligent topic novelty checks.
+-   **Production-Grade Observability:** The entire generation process is transparent, traceable, and manageable via full **LangSmith** integration, guaranteeing production-grade performance and quality.
+-   **Modular & Scalable Architecture:** Built on FastAPI, the project follows a clean, modular structure that separates concerns, making it highly scalable and maintainable.
 
 ---
 
@@ -140,8 +140,8 @@ This is where craftsmanship meets code. Below are a few hand-picked snippets tha
 
 ### Highlight 1: The Article Generation Graph (`article_generation_graph.py`)
 
-*   **What it is:** This is the central "brain" of the article generation process, defined using LangGraph's `StateGraph`. It's a state machine that orchestrates every step, from research to memory.
-*   **Why it's impressive:** It transforms a complex, multi-step process into a manageable and observable workflow. The use of a class (`ArticleGenerationGraph`) encapsulates the logic, while conditional edges (e.g., `is_topic_novel`, `decide_after_quality_grade`) give the system the ability to make decisions, loop, and self-correct—embodying the principle of an autonomous agent.
+-   **What it is:** This is the central "brain" of the article generation process, defined using LangGraph's `StateGraph`. It's a state machine that orchestrates every step, from research to memory.
+-   **Why it's impressive:** It transforms a complex, multi-step process into a manageable and observable workflow. The use of a class (`ArticleGenerationGraph`) encapsulates the logic, while conditional edges (e.g., `is_topic_novel`, `decide_after_quality_grade`) give the system the ability to make decisions, loop, and self-correct—embodying the principle of an autonomous agent.
 
 ```python
 # Snippet from: app/graph/article_generation_graph.py
@@ -183,8 +183,8 @@ class ArticleGenerationGraph:
 
 ### Highlight 2: The "Topic Novelty" Node (`check_topic_novelty_node.py`)
 
-*   **What it is:** This node acts as the gatekeeper to the generation process. It queries a dedicated vectorstore of previously generated articles to check if a new topic is a repetition.
-*   **Why it's impressive:** This is the "learning memory" in action. It demonstrates a practical RAG pattern where the system queries its own output to become smarter. Instead of a simple keyword search, it uses semantic similarity and an LLM-based grader (`topic_novelty_grader_chain`) to make a nuanced decision, directly fulfilling the "autonomy and learning" part of the manifesto.
+-   **What it is:** This node acts as the gatekeeper to the generation process. It queries a dedicated vectorstore of previously generated articles to check if a new topic is a repetition.
+-   **Why it's impressive:** This is the "learning memory" in action. It demonstrates a practical RAG pattern where the system queries its own output to become smarter. Instead of a simple keyword search, it uses semantic similarity and an LLM-based grader (`topic_novelty_grader_chain`) to make a nuanced decision, directly fulfilling the "autonomy and learning" part of the manifesto.
 
 ```python
 # Snippet from: app/graph/nodes/article_generation_nodes/check_topic_novelty_node.py
@@ -223,8 +223,8 @@ async def check_topic_novelty_node(state: ArticleGenerationGraphState) -> dict:
 
 ### Highlight 3: The Chatbot's Cyclical RAG (`chatbot_graph.py`)
 
-*   **What it is:** The chatbot graph contains multiple loops that allow it to dynamically seek more information or correct itself.
-*   **Why it's impressive:** Unlike a simple, linear RAG pipeline, this graph can decide that its retrieved documents aren't good enough and automatically fall back to a web search. It can also grade its own generated answer and, if it finds the answer unhelpful, re-enter the research phase to try again. This creates a resilient and highly intelligent conversational agent that doesn't give up easily.
+-   **What it is:** The chatbot graph contains multiple loops that allow it to dynamically seek more information or correct itself.
+-   **Why it's impressive:** Unlike a simple, linear RAG pipeline, this graph can decide that its retrieved documents aren't good enough and automatically fall back to a web search. It can also grade its own generated answer and, if it finds the answer unhelpful, re-enter the research phase to try again. This creates a resilient and highly intelligent conversational agent that doesn't give up easily.
 
 ```python
 # Snippet from: app/graph/chatbot_graph.py
@@ -261,4 +261,4 @@ workflow.add_conditional_edges(
         FINALIZE_RESPONSE: FINALIZE_RESPONSE,
     },
 )
-```
+``` 
