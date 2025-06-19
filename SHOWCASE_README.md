@@ -23,39 +23,8 @@ This repository is a showcase of the AI backend for the Chironia project, a plat
 
 The core of the project is a stateful graph that manages the entire article generation lifecycle. This architecture ensures a modular, testable, and robust workflow.
 
-```mermaid
-graph TD;
-    A["<br/>Topic<br/>(User Input)"] --> B{1. Check Topic Novelty};
-    B -->|"Novel Topic"| C[2. Route for Research];
-    B -->|"Existing Topic"| D["Stop<br/>(Inform User)"];
-    C --> E{3. Web Search};
-    C --> F{3. KB Vectorstore};
-    E --> G[4. Generate Draft];
-    F --> G;
-    G --> H{5. Grade Quality &<br/>Check Hallucinations};
-    H -->|"High Quality"| I[6. Refine Article];
-    H -->|"<br/>Low Quality"| G;
-    I --> J["7. Finalize & Format<br/>Article"];
-    J --> K[8. Save Article to<br/>'generated_articles' Memory];
-    E --> L[8. Save Research Data to<br/>'web_research' Memory];
-    style A fill:#D5E8D4,stroke:#82B366,stroke-width:2px
-    style D fill:#F8CECC,stroke:#B85450,stroke-width:2px
-    style K fill:#DAE8FC,stroke:#6C8EBF,stroke-width:2px
-    style L fill:#DAE8FC,stroke:#6C8EBF,stroke-width:2px
-    subgraph "🧠 Continuous Learning Memory"
-        K
-        L
-    end
-    subgraph "🤖 Core Generation Loop"
-        C
-        E
-        F
-        G
-        H
-        I
-        J
-    end
-```
+
+![article_generation_graph](https://github.com/user-attachments/assets/e72e282b-e69f-4605-ba19-585b62e09d6f)
 
 ---
 
@@ -63,36 +32,8 @@ graph TD;
 
 For conversational AI, the system employs a sophisticated, cyclical Retrieval-Augmented Generation (RAG) graph. This allows the chatbot to dynamically decide whether to consult its internal knowledge base, search the web for new information, or answer directly, creating a fluid and intelligent user experience. It includes loops for self-correction based on hallucination and quality checks.
 
-```mermaid
-graph TD;
-    A["<br/>Question<br/>(User Input)"] --> B{1. Route Question};
-    B -->|"Vectorstore"| C[2. Retrieve from KB];
-    B -->|"Web Search"| D[2. Web Search];
-    B -->|"Direct Answer"| H[4. Generate Answer];
-    B -->|"Error"| Z["END"];
+![chatbot_graph](https://github.com/user-attachments/assets/0cf73e30-243a-4c35-993e-72cce74dc73e)
 
-    C --> E{3. Grade Documents};
-    D --> E;
-
-    E -->|"Relevant"| H;
-    E -->|"Not Relevant & Web Not Used"| D;
-    E -->|"Not Relevant & Web Used"| H;
-
-    H --> F{5. Hallucination & Quality Check};
-
-    F -->|"Checks Passed"| I[6. Finalize Response];
-    F -->|"Regenerate"| H;
-    F -->|"Needs More Info"| D;
-
-    I --> Z;
-
-    style A fill:#D5E8D4,stroke:#82B366,stroke-width:2px
-    style I fill:#DAE8FC,stroke:#6C8EBF,stroke-width:2px
-    style Z fill:#F8CECC,stroke:#B85450,stroke-width:2px
-    style F fill:#FEEB9A,stroke:#B3A050,stroke-width:2px;
-```
-
----
 
 ## Code & Project Structure
 
